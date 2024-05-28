@@ -27,7 +27,8 @@ jobs:
         docker image ls 
         docker login registry.aquasec.com -u $AQUA_USER -p $AQUA_PASSWORD
         docker pull registry.aquasec.com/scanner:2405.20.1
-        docker run --rm -v $GITHUB_WORKSPACE:/tmp -v /var/run/docker.sock:/var/run/docker.sock -e BUILD_NUMBER=$BUILD_NUMBER -e BUILD_JOB_NAME=$BUILD_NAME registry.aquasec.com/scanner:2405.20.1 scan -w /tmp --host $AQUA_HOST --token $AQUA_TOKEN --show-negligible --registry "Docker Hub" stanhoe/spring4shell:demo --htmlfile /tmp/out.html --jsonfile /tmp/out.json > /dev/null
+        docker run --rm -v $GITHUB_WORKSPACE:/tmp -v /var/run/docker.sock:/var/run/docker.sock -e SCALOCK_LOG_LEVEL=debug -e BUILD_NUMBER=$BUILD_NUMBER -e BUILD_JOB_NAME=$BUILD_NAME registry.aquasec.com/scanner:2405.20.1 scan -w /tmp --host $AQUA_HOST --token $AQUA_TOKEN --show-negligible --registry "Docker Hub" stanhoe/spring4shell:demo --htmlfile /tmp/out.html --jsonfile /tmp/out.json > /dev/null
+        docker image ls
     - name: List Docker images
       run: |
         docker image ls 
